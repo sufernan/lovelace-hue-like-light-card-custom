@@ -119,6 +119,10 @@ export class HueLikeLightCardConfig extends HueLikeLightCardEntityConfig impleme
         this.hueBorders = HueLikeLightCardConfig.getBoolean(plainConfig.hueBorders, true);
         this.apiId = plainConfig.apiId;
         this.isVisible = HueLikeLightCardConfig.getBoolean(plainConfig.isVisible, true);
+        this.openLightWheelByDefault = HueLikeLightCardConfig.getBoolean(
+            plainConfig.openLightWheelByDefault,
+            false
+        );
 
         this.style = plainConfig.style;
         this.card_mod = plainConfig.card_mod;
@@ -280,6 +284,7 @@ export class HueLikeLightCardConfig extends HueLikeLightCardEntityConfig impleme
     public readonly hueBorders: boolean;
     public readonly apiId?: string;
     public readonly isVisible: boolean;
+    public readonly openLightWheelByDefault: boolean;
 
     /** Support for card-mod styling */
     public readonly style?: unknown;

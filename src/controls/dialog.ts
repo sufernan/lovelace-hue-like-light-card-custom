@@ -777,6 +777,18 @@ export class HueDialog extends IdLitElement {
         this.updateStylesInner(false);
     }
 
+    private openInitialLightWheel(): void {
+        if (!this._lightDetailElement) return;
+
+        const lights = this._ctrl.getLights();
+
+        if (!lights.length) return;
+
+        this._lightDetailElement.lightContainer = this._ctrl;
+        this.setSelectedLights(...lights);
+        this._lightDetailElement.show();
+    }
+
     public override connectedCallback(): void {
         super.connectedCallback();
 
