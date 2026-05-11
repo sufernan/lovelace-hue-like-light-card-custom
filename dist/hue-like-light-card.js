@@ -10036,21 +10036,29 @@ let HueDialog = HueDialog_1 = class HueDialog extends IdLitElement {
         super.updated(changedProps);
         this.updateStylesInner(false);
     }
-    openInitialLightWheel() {
-        if (!this._lightDetailElement)
+    async openInitialLightWheel() {
+        const detail = this._lightDetailElement;
+        if (!detail)
             return;
         const lights = this._ctrl.getLights();
         if (!lights.length)
             return;
-        this._lightDetailElement.lightContainer = this._ctrl;
+        detail.areaController = this._ctrl;
+        detail.lightContainer = this._ctrl;
         this.setSelectedLights(...lights);
-        this._lightDetailElement.show();
+        await detail.updateComplete;
+        requestAnimationFrame(() => {
+            detail.show();
+        });
     }
     connectedCallback() {
         super.connectedCallback();
-        this.updateComplete.then(() => {
+        this.updateComplete.then(async () => {
             this.tryCreateBackdropAndLightDetail(true);
             this.updateStylesInner(true);
+            if (this._config.openLightWheelByDefault) {
+                await this.openInitialLightWheel();
+            }
         });
     }
 };
